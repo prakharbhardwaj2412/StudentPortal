@@ -18,48 +18,46 @@ function SigninController($scope, $location, $http) {
   $scope.UsrName = "";
   $scope.Pass = "";
 
-
+  sessionStorage.clear();
   $scope.onSubmit = function () {
   	var UsrNm = $scope.UsrName;
   	console.log(UsrNm);
   	var Ps = $scope.Pass
   	console.log(Ps);
-  	var obj = { "email": UsrNm, "password": Ps};
+  	var obj = { "library_id": UsrNm, "password": Ps};
   	console.log(obj);
   	var jsnObj = JSON.stringify(obj);
   	console.log(jsnObj);
 
     $http({
       method: "POST",
-      url: "http://8117e43f8262.ngrok.io/",
+      url: window.url+"login/",
       data: jsnObj
     })
     .then(function Success(response){
       $scope.myWelcome = response.data;
       console.log($scope.myWelcome);
+      if (response.data=="wrong credientials") {
+        window.alert(response.data);
+      }
+      else {
+        sessionStorage.setItem("id", JSON.stringify(response.data));
+        window.location.href = "../dashboard/index.html";
+      }
+
       // $scope.statuscode = response.status;
       // $location.path('../dashboard.html');
-       window.location.assign("dashboard.html");
+       // window.location.assign("../dashboard/index.html");
        // var link=window.location.pathname;
        // console.log(link);
     }, function Error(response){
       $scope.myWelcome = response.statusText;
-      window.alert("wrong credientials");
+      window.alert("cannot process request");
       console.log($scope.myWelcome);
     });
 
 
-  	// var xhttp = new XMLHttpRequest();
-	  // xhttp.onreadystatechange = function() {
-	  //   if (this.readyState == 4 && this.status == 200) {
-	  //     // document.getElementById("demo").innerHTML = this.responseText;
-	  //     console.log(this.responseText);
-	  //   }
-	  // };
-	  // xhttp.open("POST", "https://reqres.in/api/login", true);
-	  // xhttp.setRequestHeader("Content-Type", "application/json");
-	  // xhttp.send(jsnObj);
-  
+  	
 
 
 
