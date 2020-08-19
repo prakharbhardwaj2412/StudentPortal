@@ -21,7 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" style="color: #ffffff; font-size:1.5em; font-weight: 800; margin-left: 50px;" href="#">STUDENT<span style="font-weight: 500;">PORTAL</span></a>
 
       <ul class="navbar-nav mr-auto">
@@ -48,7 +48,10 @@
       i++;       
 		}
 
+    
+
 	</script>
+
 
 	<div id="mySidenav" class="sidenav">
   <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
@@ -67,7 +70,9 @@
 
     <div gridster="gridsterOpts">
       <ul>
-        <li gridster-item="item" ng-repeat="item in standardItems"><div style="box-shadow: 10px,20px,rgba(0,0,0,0.7);background-color: rgba(0,0,0,0.4);height: 100%;width: 100%;"></div></li>
+        <li gridster-item="item" ng-repeat="item in standardItems"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 100%;width: 100%;border-radius: 7px;">
+          <div ui-view="{{templates[$index]}}"></div>
+        </div></li>
       </ul>
 
     </div>
@@ -77,6 +82,7 @@
 <!-- ########## js ########## -->
   <div>
     <script src="../lib/angular.min.js"></script>
+    <script src="../lib/angular-ui-router.min.js"></script>
     <script src="../bower_components/javascript-detect-element-resize/jquery.resize.js"></script>
     <script src="../bower_components/angular-gridster/dist/angular-gridster.min.js"></script>
     <script src="script.js"></script>
