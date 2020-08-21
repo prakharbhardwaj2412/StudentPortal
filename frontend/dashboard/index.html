@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
   <link rel="stylesheet" href="../bower_components/angular-gridster/dist/angular-gridster.min.css"/>
 
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -70,8 +73,27 @@
 
     <div gridster="gridsterOpts">
       <ul>
-        <li gridster-item="item" ng-repeat="item in standardItems"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 100%;width: 100%;border-radius: 7px;">
+        <!-- <li gridster-item="item" ng-repeat="item in standardItems"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 90%;width: 100%;border-radius: 7px;">
           <div ui-view="{{templates[$index]}}"></div>
+        </div></li> -->
+        <li gridster-item="standardItems[0]"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 90%;width: 100%;border-radius: 7px;">
+          <div ui-view="{{templates[0]}}"></div>
+        </div></li>
+
+        <li gridster-item="standardItems[1]"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 90%;width: 100%;border-radius: 7px;">
+          <div ui-view="{{templates[1]}}"></div>
+        </div></li>
+
+        <li gridster-item="standardItems[2]"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 90%;width: 100%;border-radius: 7px;">
+          <div ui-view="{{templates[2]}}"></div>
+        </div></li>
+
+        <li gridster-item="standardItems[3]"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #fff;height: 90%;width: 100%;border-radius: 7px;">
+          <div ui-view="{{templates[3]}}"></div>
+        </div></li>
+
+        <li gridster-item="standardItems[4]"><div style="box-shadow: 0 5px 20px rgba(0,0,0,0.4);background-color: #3f4e62;height: 90%;width: 100%;border-radius: 7px;">
+          <div ui-view="{{templates[4]}}"></div>
         </div></li>
       </ul>
 
@@ -81,6 +103,7 @@
 
 <!-- ########## js ########## -->
   <div>
+    <script src="../url.js"></script>
     <script src="../lib/angular.min.js"></script>
     <script src="../lib/angular-ui-router.min.js"></script>
     <script src="../bower_components/javascript-detect-element-resize/jquery.resize.js"></script>

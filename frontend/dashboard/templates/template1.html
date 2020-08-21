@@ -1,1 +1,37 @@
-<h1>1</h1>
+<div>
+	<section style="padding: 30px 25px 15px;">
+		<h1 style="font-size: 28px;color: #1199d3;letter-spacing: 1px; font-weight: 600">ATTENDANCE</h1>
+	</section>
+	<div style="width: 40%; float: left;position: relative;padding-left: 15px;padding-right: 15px;">
+		<canvas id="myChart"></canvas>
+		<!-- <h1>NORMAL</h1> -->
+	</div>
+	<div style="padding: 20px; width: 50%;float: left;position: relative">
+		<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ATTENDANVE TYPE</th>
+      <th scope="col">PERCENTAGE</th>
+      <th scope="col">P/T</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">NORMAL</th>
+      <td style="color: #56af50; font-weight: 500">{{ percentage }}</td>
+      <td>{{ present_days+"/"+total_days }}</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">OVERALL</th>
+      <td style="color: #56af50; font-weight: 500">{{ percentage }}</td>
+      <td>{{ present_days+"/"+total_days }}</td>
+      
+    </tr>
+    
+  </tbody>
+</table>
+	</div>
+	
+	
+</div>
