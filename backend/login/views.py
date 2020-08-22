@@ -27,7 +27,11 @@ def marks(request):
 	pass
 
 def timetable(request):
-	pass
+	if (request.method=="GET"):
+		timetbl = Timetable.objects.all()
+		return JsonResponse(list(timetbl.values()), safe=False)
 
 def birthday(request):
-	pass
+	if (request.method=="GET"):
+		brthdy = Birthday.objects.all()
+		return JsonResponse(list(brthdy.values()), safe=False)

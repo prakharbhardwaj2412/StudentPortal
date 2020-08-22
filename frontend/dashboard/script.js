@@ -1,6 +1,6 @@
 (function(){
 	
-	angular.module('myApp', ['ui.router', 'gridster']);
+	angular.module('myApp', ['ui.router', 'ui.calendar', 'gridster']);
 
 	angular.module('myApp')
     .controller('AppController', AppController);
@@ -10,10 +10,10 @@
 
 		$scope.standardItems = [
 		  { sizeX: 6, sizeY: 3, row: 0, col: 0 },
-		  { sizeX: 3, sizeY: 3, row: 3, col: 0 },
-		  { sizeX: 3, sizeY: 3, row: 3, col: 3 },
-		  { sizeX: 4, sizeY: 5, row: 6, col: 0 },
-		  { sizeX: 2, sizeY: 5, row: 6, col: 4 }
+		  { sizeX: 3, sizeY: 4, row: 3, col: 0 },
+		  { sizeX: 3, sizeY: 4, row: 3, col: 3 },
+		  { sizeX: 4, sizeY: 5, row: 7, col: 0 },
+		  { sizeX: 2, sizeY: 5, row: 7, col: 4 }
 		];
 
 		$scope.templates = [ "template1", "template2", "template3", "template4", "template5"];
@@ -121,7 +121,7 @@
     template1Controller.$inject = ['$scope', '$http'];
     function template1Controller($scope, $http){
     	var jsnObj = sessionStorage.getItem("id");
-    	jsnObj = JSON.stringify({id: "2"})
+    	// jsnObj = JSON.stringify({id: "2"})
     	console.log(jsnObj);
 
     	var attnd = [];
@@ -133,13 +133,13 @@
 	    })
 	    .then(function Success(response){
 	      	$scope.myWelcome = response.data;
-	      	console.log($scope.myWelcome[0]);
+	      	// console.log($scope.myWelcome[0]);
 	      	$scope.percentage = $scope.myWelcome[0].percentage;
 	      	$scope.present_days = $scope.myWelcome[0].present_days;
 	      	$scope.total_days = $scope.myWelcome[0].total_days;
 	      	attnd.push($scope.present_days);
 	      	attnd.push($scope.total_days - $scope.present_days);
-	      	console.log(attnd)
+	      	// console.log(attnd)
 
 
 	    }, function Error(response){
@@ -177,86 +177,87 @@
 		
     }
 
-    // template 2
-    template2Controller.$inject = ['$scope', '$scope'];
-    function template2Controller($scope, $http){}
+    // template 2 Timetable
+    template2Controller.$inject = ['$scope', '$http'];
+    function template2Controller($scope, $http){
 
-    // template 3
-    template3Controller.$inject = ['$scope', '$scope'];
-    function template3Controller($scope, $http){}
+    	$http({
+    		method: "GET",
+	      	url: window.url+"login/timetable/",
+	      	// data: jsnObj
+	    })
+	    .then(function Success(response){
+	      	$scope.timetble = response.data;
+	      	// console.log($scope.timetble);
 
-    // template 5
-    template5Controller.$inject = ['$scope', '$http', ];
-    function template5Controller($scope, $http){}
 
-    // template 4
-    template4Controller.$inject = ['$scope', '$scope', '$compile', '$timeout', '$window'];
-    function template4Controller($scope, $http, $compile, $timeout, uiCalendarConfig, $window){
-    	var date = new Date();
-            var d = date.getDate();
-            var m = date.getMonth();
-            var y = date.getFullYear();
 
-            /* event source that pulls from google.com */
-            $scope.eventSource = {
-                url: "http://www.google.com/calendar/feeds/indian__en%40holiday.calendar.google.com/public/basic",
-                // className: 'gcal-event',           // an option!,
-                currentTimezone: 'India', // an option!
-                googleCalendarApiKey: 'AIzaSyCc5LZyMQ2pBB1dAJerfliEEu0P8hMUVwg'
-            };
-            /* event source that contains custom events on the scope */
-            $scope.events = [];
-            /* event source that calls a function on every view switch */
-            $scope.eventsF = function (start, end, timezone, callback) {
-                var s = new Date(start).getTime() / 1000;
-                var e = new Date(end).getTime() / 1000;
-                var m = new Date(start).getMonth();
-                var events = [{ title: 'Feed Me ' + m, start: s + (50000), end: s + (100000), allDay: false, className: ['customFeed'] }];
-                callback(events);
-            };
-
-            $scope.calEventsExt = {
-                color: '#f00',
-                textColor: 'yellow',
-                events: []
-            };
-
-            $scope.eventRender = function (event, element, view) {
-                element.attr({
-                    'tooltip': event.title,
-                    'tooltip-append-to-body': true
-                });
-                $compile(element)($scope);
-            };
-            /* config object */
-            $scope.uiConfig = {
-                calendar: {
-                    height: 455,
-                    editable: false,
-                    header: {
-                        left: 'title',
-                        center: '',
-                        right: 'today prev,next'
-                    },
-                    eventRender: $scope.eventRender,
-                }
-            };
-
-            /* event sources array*/
-            // $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-            // $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-            // $scope.eventSources = [getEvents];
-            $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
-            console.log("template2");
-
-            // to load the calendar 
-            $timeout(() => { jQuery('.fc-today-button').click(); console.log('calendar loaded'); }, 500)
-            // (() => { $('.fc-today-button').click(); }, 2000)();
-            // setInterval(function () { $('.fc-today-button').click(); }, 1000);
-            // today()
-            //  fc-button fc-state-default fc-corner-left fc-corner-right fc-today-button
+	    }, function Error(response){
+	      	$scope.myWelcome = response.statusText;
+	      	// window.alert("cannot process request");
+	      	console.log($scope.myWelcome);
+	    });
     }
 
+    // template 3
+    template3Controller.$inject = ['$scope', '$http'];
+    function template3Controller($scope, $http){}
+
+    // template 4
+    template4Controller.$inject = ['$scope'];
+    function template4Controller($scope){
+
+    	$scope.custom = {
+	        url: "http://www.google.com/calendar/feeds/indian__en%40holiday.calendar.google.com/public/basic",
+	        // className: 'gcal-event',           // an option!,
+	        currentTimezone: 'India', // an option!
+	        googleCalendarApiKey: 'AIzaSyCc5LZyMQ2pBB1dAJerfliEEu0P8hMUVwg'
+	    };
+
+    	$scope.eventSources = [$scope.custom];
+    	/* config object */
+        $scope.uiConfig = {
+          calendar:{
+            height: 500,
+            editable: false,
+            header:{
+              // left: 'month basicWeek basicDay agendaWeek agendaDay',
+              left: 'title',
+              center: '',
+              right: 'today prev,next'
+            },
+            eventClick: $scope.alertEventOnClick,
+            eventDrop: $scope.alertOnDrop,
+            eventResize: $scope.alertOnResize
+          }
+        };
+
+
+
+
+    }
+
+    // template 5 Birthday
+    template5Controller.$inject = ['$scope', '$http', ];
+    function template5Controller($scope, $http){
+
+    	$http({
+    		method: "GET",
+	      	url: window.url+"login/birthday/",
+	      	// data: jsnObj
+	    })
+	    .then(function Success(response){
+	      	$scope.brthdy = response.data;
+	      	console.log($scope.brthdy);
+
+
+
+	    }, function Error(response){
+	      	$scope.myWelcome = response.statusText;
+	      	// window.alert("cannot process request");
+	      	console.log($scope.myWelcome);
+	    });
+    }
 
 
 

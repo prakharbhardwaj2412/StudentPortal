@@ -41,7 +41,9 @@ function SigninController($scope, $location, $http) {
         window.alert(response.data);
       }
       else {
-        sessionStorage.setItem("id", JSON.stringify(response.data));
+
+        sessionStorage.setItem("id", ($scope.myWelcome));
+        console.log(sessionStorage.getItem("id"));
         window.location.href = "../dashboard/index.html";
       }
 
